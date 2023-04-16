@@ -24,24 +24,26 @@ let users = [
 
 // GET request: Retrieve all users
 router.get("/", (req, res) => {
+  console.log("in GET /");
   res.send(JSON.stringify({ users }, null, 4));
-});
-
-// GET by specific ID request: Retrieve a single user with email ID
-router.get("/:email", (req, res) => {
-  res.send(users.filter((user) => user.email === req.params.email));
 });
 
 // GET sorted by DOB
 router.get("/sorted", (req, res) => {
-  console.log("in sorted GET request");
+  console.log("in GET /sorted");
   let sorted = users.sort((a, b) => new Date(a.DOB) - new Date(b.DOB));
-  console.log(sorted);
   res.send(sorted);
+});
+
+// GET by specific ID request: Retrieve a single user with email ID
+router.get("/:email", (req, res) => {
+  console.log("in GET /:email");
+  res.send(users.filter((user) => user.email === req.params.email));
 });
 
 // POST request: Create a new user
 router.post("/", (req, res) => {
+  console.log("in POST /");
   const newFriend = {
     firstName: req.query.firstName,
     lastName: req.query.lastName,
@@ -54,6 +56,7 @@ router.post("/", (req, res) => {
 
 // PUT request: Update the details of a user by email ID
 router.put("/:email", (req, res) => {
+  console.log("in PUT /:email");
   const currentUserList = users.filter(
     (user) => user.email === req.params.email
   );
@@ -72,6 +75,7 @@ router.put("/:email", (req, res) => {
 
 // DELETE request: Delete a user by email ID
 router.delete("/:email", (req, res) => {
+  console.log("in DELETE /:email");
   users = users.filter((user) => user.email !== req.params.email);
   res.send(`User with email ${email} deleted.`);
 });
